@@ -3,24 +3,21 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const cors = require("cors");
 require("dotenv").config();
 
-var itemsRouter = require('./routes/items')
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var itemsRouter = require('./routes/items');
 
 
-var { mongoConnect } = require('./mongo.js');
-mongoConnect();
+var { mongoConnect } = require('./mongo.js')
+mongoConnect()
 
 var app = express();
 
 app.use(cors());
 app.options("*", cors());
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,9 +29,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/', indexRouter);
+app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
-app.use('/api/items', itemsRouter)
+app.use('/api/items', itemsRouter);
 
 
 // catch 404 and forward to error handler
